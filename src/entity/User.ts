@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { hash } from "bcryptjs";
 import { ObjectType, Field, ID, Root } from "type-graphql";
+import { AllLogs } from '../types/AllLogs';
 
 @ObjectType()
 @Entity()
@@ -39,6 +40,10 @@ export class User extends BaseEntity {
     @Field()
     @Column("bool", { default: false })
     confirmed: boolean;
+
+    @Field(() => AllLogs, { nullable: true })
+    @Column('simple-json', { default: [], nullable: true })
+    logs: AllLogs
 
     @BeforeInsert()
     async hashPassword() {
