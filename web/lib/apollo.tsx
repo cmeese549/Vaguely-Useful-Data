@@ -11,6 +11,7 @@ import fetch from "isomorphic-unfetch";
 import { onError } from "apollo-link-error";
 import Router from "next/router";
 import redirect from "./redirect";
+require('dotenv').config();
 // import redirect from "./redirect";
 
 /**
@@ -187,7 +188,7 @@ function createApolloClient(
     }
 
     const httpLink = new HttpLink({
-        uri: "http://localhost:4000/graphql", // Server URL (must be absolute)
+        uri: process.env.DB_URL + "/graphql", // Server URL (must be absolute)
         credentials: "include",
         fetch,
         fetchOptions
