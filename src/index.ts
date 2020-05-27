@@ -21,7 +21,23 @@ const RedisStore = connectRedis(session);
 (async () => {
     const app = express();
 
-    app.use(cors({ credentials: true, origin: process.env.ENV_URL }));
+    const whitelist = [
+        `${process.env.URL_PRE}${process.env.ENV_URL}`,
+        `${process.env.URL_PRE}www.${process.env.ENV_URL}`
+    ];
+    const corsOptions = {
+        origin: function (origin: string, callback: any) {
+            console.log(origin);
+            if (whitelist.indexOf(origin) !== -1 || !origin) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        },
+        credentials: true
+    }
+    //@ts-ignore
+    app.use(cors(corsOptions));
 
     app.use(
         session({

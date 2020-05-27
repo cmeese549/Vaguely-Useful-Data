@@ -8,7 +8,7 @@ export async function sendEmail(email: string, token: string) {
         from: 'mail@benshapirobuttinjeanspics.',
         subject: 'VUD Email Stuff',
         text: 'You wanted a thing to happen so click this to make it happen',
-        html: `<a href="${process.env.ENV_URL}/${token}">${process.env.ENV_URL}/${token}</a>`,
+        html: `<a href="${process.env.URL_PRE}${process.env.ENV_URL}/${token}">${process.env.ENV_URL}/${token}</a>`,
       };
       sgMail.send(msg);
 }
