@@ -1,5 +1,6 @@
 import * as React from "react";
 import Layout from "../components/Layout";
+import { withApollo } from "../lib/apollo";
 
 const CheckEmailPage: React.FC = () => {
     return (
@@ -9,4 +10,4 @@ const CheckEmailPage: React.FC = () => {
     );
 };
 
-export default CheckEmailPage;
+export default withApollo(CheckEmailPage);
