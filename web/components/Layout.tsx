@@ -30,14 +30,18 @@ const Layout: React.FunctionComponent<Props> = ({
                             <a>Home</a>
                         </Link>
                     </div>
-                    {!data && (
+                    {data && data.me ? '' : (
                         <div>
-                            <Link href="/register">
-                                <a>Register</a>
-                            </Link>
-                            <Link href="/login">
-                                <a>Login</a>
-                            </Link>
+                            <div>
+                                <Link href="/register">
+                                    <a>Register</a>
+                                </Link>
+                            </div>
+                            <div>
+                                <Link href="/login">
+                                    <a>Login</a>
+                                </Link>
+                            </div>
                         </div>
                     )}
                     {data && data.me &&
