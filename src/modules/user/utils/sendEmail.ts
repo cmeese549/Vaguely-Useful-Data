@@ -1,53 +1,14 @@
-// import nodemailer from "nodemailer";
-
-// export async function sendEmail(email: string, token: string) {
-//     const testAccount = await nodemailer.createTestAccount();
-
-//     let transporter = nodemailer.createTransport({
-//         host: "smtp.ethereal.email",
-//         port: 587,
-//         secure: false, // true for 465, false for other ports
-//         auth: {
-//             user: testAccount.user, // generated ethereal user
-//             pass: testAccount.pass // generated ethereal password
-//         }
-//     });
-
-//     const info = await transporter.sendMail({
-//         from: '"Fred Foo 👻" <foo@example.com>', // sender address
-//         to: email, // list of receivers
-//         subject: "Confirmation ✔", // Subject line
-//         text: "Hello world?", // plain text body
-//         html: `<a href="http://localhost:3000/${token}">http://localhost:3000/${token}</a>` // html body
-//     });
-
-//     console.log("Message sent: %s", info.messageId);
-//     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-// }
-
-import nodemailer from "nodemailer";
+require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export async function sendEmail(email: string, token: string) {
-    const testAccount = await nodemailer.createTestAccount();
-
-    let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: testAccount.user, // generated ethereal user
-            pass: testAccount.pass // generated ethereal password
-        }
-    });
-
-    const info = await transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: email, // list of receivers
-        subject: "Confirmation ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: `<a href="http://localhost:3000/${token}">http://localhost:3000/${token}</a>` // html body
-    });
-
-    console.log("Message sent: %s", info.messageId);
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    const msg = {
+        to: email,
+        from: 'mail@benshapirobuttinjeanspics.',
+        subject: 'VUD Email Stuff',
+        text: 'You wanted a thing to happen so click this to make it happen',
+        html: `<a href="${process.env.ENV_URL}/${token}">${process.env.ENV_URL}/${token}</a>`,
+      };
+      sgMail.send(msg);
 }
