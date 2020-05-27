@@ -58,17 +58,26 @@ export class MiningLogsResolver {
         }
         const user = await User.findOne(userId);
         if (user) {
-            if (user.logs === null) {
-                user.logs = { data: [] };
+            if (Array.isArray(user.logs)) {
+                user.logs = {
+                    data:  [{
+                        id: 1,
+                        ...logData
+                    }]
+                };
+                await user.save();
+                return user.logs.data[0];
+            } else {
+                console.log('why are you here');
+                const newId: number = user.logs.data.length + 1;
+                const newLogData = {
+                    id: newId,
+                    ...logData
+                };
+                user.logs.data.push(newLogData);
+                await user.save();
+                return newLogData;
             }
-            const newId: number = user.logs.data.length + 1;
-            const newLogData = {
-                id: newId,
-                ...logData
-            };
-            user.logs.data.push(newLogData);
-            await user.save();
-            return newLogData;
         }
         return null;
     }
