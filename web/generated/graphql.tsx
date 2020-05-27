@@ -9,6 +9,18 @@ export type Scalars = {
   Boolean: boolean,
   Int: number,
   Float: number,
+  JSONObject: any,
+};
+
+export type AllLogs = {
+   __typename?: 'AllLogs',
+  data?: Maybe<Array<LogData>>,
+};
+
+export type CargoData = {
+   __typename?: 'CargoData',
+  mineral: Minerals,
+  percentage: Scalars['Float'],
 };
 
 export type ChangePasswordInput = {
@@ -20,10 +32,106 @@ export type EmailInput = {
   email: Scalars['String'],
 };
 
+
+export type LogData = {
+   __typename?: 'LogData',
+  id: Scalars['Float'],
+  date: Scalars['String'],
+  patch: Scalars['String'],
+  ship: MiningShips,
+  miningHead1: MiningHeadData,
+  miningHead2: MiningHeadData,
+  miningHead3: MiningHeadData,
+  miningLocation: MiningLocations,
+  sellLocation: SellLocations,
+  sellPrice: Scalars['Float'],
+  operatingCost: Scalars['Float'],
+  profit: Scalars['Float'],
+  emptySpace: Scalars['Float'],
+  cargoBreakdown: Array<CargoData>,
+};
+
+export type LogDataArgsType = {
+  date: Scalars['String'],
+  patch: Scalars['String'],
+  ship: MiningShips,
+  miningHead1: MiningHeadData,
+  miningHead2: MiningHeadData,
+  miningHead3: MiningHeadData,
+  miningLocation: MiningLocations,
+  sellLocation: SellLocations,
+  sellPrice: Scalars['Float'],
+  operatingCost: Scalars['Float'],
+  profit: Scalars['Float'],
+  emptySpace: Scalars['Float'],
+  cargoBreakdown: Array<Scalars['JSONObject']>,
+};
+
 export type LoginInput = {
   password: Scalars['String'],
   email: Scalars['String'],
 };
+
+export enum Minerals {
+  Quantainium = 'Quantainium',
+  Bexalite = 'Bexalite',
+  Taranite = 'Taranite',
+  Borase = 'Borase',
+  Laranite = 'Laranite',
+  Agricium = 'Agricium',
+  Hephaestanite = 'Hephaestanite',
+  Titanium = 'Titanium',
+  Diamond = 'Diamond',
+  Gold = 'Gold',
+  Copper = 'Copper',
+  Beryl = 'Beryl',
+  Tungsten = 'Tungsten',
+  Corundum = 'Corundum',
+  Quartz = 'Quartz',
+  Aluminium = 'Aluminium',
+  InertMaterial = 'InertMaterial'
+}
+
+export enum MiningHeadData {
+  ArborMh1 = 'ArborMH1',
+  ArborMh2 = 'ArborMH2',
+  HelixS1 = 'HelixS1',
+  HelixS2 = 'HelixS2',
+  HofstedeS1 = 'HofstedeS1',
+  HofstedeS2 = 'HofstedeS2',
+  Impact1 = 'Impact1',
+  Impact2 = 'Impact2',
+  KleinS1 = 'KleinS1',
+  KleinS2 = 'KleinS2',
+  LancetMh1 = 'LancetMH1',
+  LancetMh2 = 'LancetMH2',
+  None = 'None'
+}
+
+export enum MiningLocations {
+  AaronHalo = 'AaronHalo',
+  Lyria = 'Lyria',
+  Wala = 'Wala',
+  Cellin = 'Cellin',
+  Daymar = 'Daymar',
+  Yela = 'Yela',
+  Crul = 'CRUL',
+  Levski = 'Levski',
+  Aberdeen = 'Aberdeen',
+  Arial = 'Arial',
+  Ita = 'Ita',
+  Magda = 'Magda',
+  Hurl = 'HURL',
+  Calliope = 'Calliope',
+  Clio = 'Clio',
+  Euterpe = 'Euterpe',
+  Micl1 = 'MICL1'
+}
+
+export enum MiningShips {
+  Prospector = 'Prospector',
+  Mole = 'Mole'
+}
 
 export type Mutation = {
    __typename?: 'Mutation',
@@ -34,6 +142,9 @@ export type Mutation = {
   login?: Maybe<User>,
   logout: Scalars['Boolean'],
   createUser: User,
+  addLog?: Maybe<LogData>,
+  updateLog?: Maybe<LogData>,
+  deleteLog: Scalars['Boolean'],
 };
 
 
@@ -66,11 +177,34 @@ export type MutationCreateUserArgs = {
   input: RegisterInput
 };
 
+
+export type MutationAddLogArgs = {
+  logData: LogDataArgsType
+};
+
+
+export type MutationUpdateLogArgs = {
+  logData: LogDataArgsType,
+  logId: Scalars['Float']
+};
+
+
+export type MutationDeleteLogArgs = {
+  logId: Scalars['Float']
+};
+
 export type Query = {
    __typename?: 'Query',
   hello: Scalars['String'],
   users: Array<User>,
   me?: Maybe<User>,
+  getAllLogs?: Maybe<AllLogs>,
+  getLog?: Maybe<LogData>,
+};
+
+
+export type QueryGetLogArgs = {
+  logId: Scalars['Float']
 };
 
 export type RegisterInput = {
@@ -79,6 +213,14 @@ export type RegisterInput = {
   email: Scalars['String'],
   password: Scalars['String'],
 };
+
+export enum SellLocations {
+  Area18 = 'Area18',
+  PortOlisar = 'PortOlisar',
+  GrimHex = 'GrimHex',
+  Levski = 'Levski',
+  NewBabbage = 'NewBabbage'
+}
 
 export type User = {
    __typename?: 'User',
@@ -89,7 +231,104 @@ export type User = {
   email: Scalars['String'],
   password: Scalars['String'],
   confirmed: Scalars['Boolean'],
+  logs?: Maybe<AllLogs>,
 };
+
+export type AddLogMutationVariables = {
+  date: Scalars['String'],
+  patch: Scalars['String'],
+  ship: MiningShips,
+  miningHead1: MiningHeadData,
+  miningHead2: MiningHeadData,
+  miningHead3: MiningHeadData,
+  miningLocation: MiningLocations,
+  sellLocation: SellLocations,
+  sellPrice: Scalars['Float'],
+  operatingCost: Scalars['Float'],
+  profit: Scalars['Float'],
+  emptySpace: Scalars['Float'],
+  cargoBreakdown: Array<Scalars['JSONObject']>
+};
+
+
+export type AddLogMutation = (
+  { __typename?: 'Mutation' }
+  & { addLog: Maybe<(
+    { __typename?: 'LogData' }
+    & Pick<LogData, 'id'>
+  )> }
+);
+
+export type DeleteLogMutationVariables = {
+  logId: Scalars['Float']
+};
+
+
+export type DeleteLogMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteLog'>
+);
+
+export type GetAllLogsQueryVariables = {};
+
+
+export type GetAllLogsQuery = (
+  { __typename?: 'Query' }
+  & { getAllLogs: Maybe<(
+    { __typename?: 'AllLogs' }
+    & { data: Maybe<Array<(
+      { __typename?: 'LogData' }
+      & Pick<LogData, 'id' | 'date' | 'ship' | 'profit' | 'miningLocation' | 'sellLocation'>
+    )>> }
+  )> }
+);
+
+export type GetLogQueryVariables = {
+  logId: Scalars['Float']
+};
+
+
+export type GetLogQuery = (
+  { __typename?: 'Query' }
+  & { getLog: Maybe<(
+    { __typename?: 'LogData' }
+    & Pick<LogData, 'id' | 'date' | 'patch' | 'ship' | 'miningHead1' | 'miningHead2' | 'miningHead3' | 'miningLocation' | 'sellLocation' | 'sellPrice' | 'operatingCost' | 'profit' | 'emptySpace'>
+    & { cargoBreakdown: Array<(
+      { __typename?: 'CargoData' }
+      & Pick<CargoData, 'mineral' | 'percentage'>
+    )> }
+  )> }
+);
+
+export type UpdateLogMutationVariables = {
+  logId: Scalars['Float'],
+  date: Scalars['String'],
+  patch: Scalars['String'],
+  ship: MiningShips,
+  miningHead1: MiningHeadData,
+  miningHead2: MiningHeadData,
+  miningHead3: MiningHeadData,
+  miningLocation: MiningLocations,
+  sellLocation: SellLocations,
+  sellPrice: Scalars['Float'],
+  operatingCost: Scalars['Float'],
+  profit: Scalars['Float'],
+  emptySpace: Scalars['Float'],
+  cargoBreakdown: Array<Scalars['JSONObject']>
+};
+
+
+export type UpdateLogMutation = (
+  { __typename?: 'Mutation' }
+  & { updateLog: Maybe<(
+    { __typename?: 'LogData' }
+    & Pick<LogData, 'id' | 'date' | 'patch' | 'ship' | 'miningHead1' | 'miningHead2' | 'miningHead3' | 'miningLocation' | 'sellLocation' | 'sellPrice' | 'operatingCost' | 'profit' | 'emptySpace'>
+    & { cargoBreakdown: Array<(
+      { __typename?: 'CargoData' }
+      & Pick<CargoData, 'mineral' | 'percentage'>
+    )> }
+  )> }
+);
 
 export type ChangePasswordMutationVariables = {
   token: Scalars['String'],
@@ -183,6 +422,229 @@ export type UsersQuery = (
 );
 
 
+export const AddLogDocument = gql`
+    mutation addLog($date: String!, $patch: String!, $ship: MiningShips!, $miningHead1: MiningHeadData!, $miningHead2: MiningHeadData!, $miningHead3: MiningHeadData!, $miningLocation: MiningLocations!, $sellLocation: SellLocations!, $sellPrice: Float!, $operatingCost: Float!, $profit: Float!, $emptySpace: Float!, $cargoBreakdown: [JSONObject!]!) {
+  addLog(logData: {date: $date, patch: $patch, ship: $ship, miningHead1: $miningHead1, miningHead2: $miningHead2, miningHead3: $miningHead3, miningLocation: $miningLocation, sellLocation: $sellLocation, sellPrice: $sellPrice, operatingCost: $operatingCost, profit: $profit, emptySpace: $emptySpace, cargoBreakdown: $cargoBreakdown}) {
+    id
+  }
+}
+    `;
+export type AddLogMutationFn = ApolloReactCommon.MutationFunction<AddLogMutation, AddLogMutationVariables>;
+
+/**
+ * __useAddLogMutation__
+ *
+ * To run a mutation, you first call `useAddLogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddLogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addLogMutation, { data, loading, error }] = useAddLogMutation({
+ *   variables: {
+ *      date: // value for 'date'
+ *      patch: // value for 'patch'
+ *      ship: // value for 'ship'
+ *      miningHead1: // value for 'miningHead1'
+ *      miningHead2: // value for 'miningHead2'
+ *      miningHead3: // value for 'miningHead3'
+ *      miningLocation: // value for 'miningLocation'
+ *      sellLocation: // value for 'sellLocation'
+ *      sellPrice: // value for 'sellPrice'
+ *      operatingCost: // value for 'operatingCost'
+ *      profit: // value for 'profit'
+ *      emptySpace: // value for 'emptySpace'
+ *      cargoBreakdown: // value for 'cargoBreakdown'
+ *   },
+ * });
+ */
+export function useAddLogMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<AddLogMutation, AddLogMutationVariables>) {
+        return ApolloReactHooks.useMutation<AddLogMutation, AddLogMutationVariables>(AddLogDocument, baseOptions);
+      }
+export type AddLogMutationHookResult = ReturnType<typeof useAddLogMutation>;
+export type AddLogMutationResult = ApolloReactCommon.MutationResult<AddLogMutation>;
+export type AddLogMutationOptions = ApolloReactCommon.BaseMutationOptions<AddLogMutation, AddLogMutationVariables>;
+export const DeleteLogDocument = gql`
+    mutation deleteLog($logId: Float!) {
+  deleteLog(logId: $logId)
+}
+    `;
+export type DeleteLogMutationFn = ApolloReactCommon.MutationFunction<DeleteLogMutation, DeleteLogMutationVariables>;
+
+/**
+ * __useDeleteLogMutation__
+ *
+ * To run a mutation, you first call `useDeleteLogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLogMutation, { data, loading, error }] = useDeleteLogMutation({
+ *   variables: {
+ *      logId: // value for 'logId'
+ *   },
+ * });
+ */
+export function useDeleteLogMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<DeleteLogMutation, DeleteLogMutationVariables>) {
+        return ApolloReactHooks.useMutation<DeleteLogMutation, DeleteLogMutationVariables>(DeleteLogDocument, baseOptions);
+      }
+export type DeleteLogMutationHookResult = ReturnType<typeof useDeleteLogMutation>;
+export type DeleteLogMutationResult = ApolloReactCommon.MutationResult<DeleteLogMutation>;
+export type DeleteLogMutationOptions = ApolloReactCommon.BaseMutationOptions<DeleteLogMutation, DeleteLogMutationVariables>;
+export const GetAllLogsDocument = gql`
+    query getAllLogs {
+  getAllLogs {
+    data {
+      id
+      date
+      ship
+      profit
+      miningLocation
+      sellLocation
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllLogsQuery__
+ *
+ * To run a query within a React component, call `useGetAllLogsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllLogsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllLogsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllLogsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetAllLogsQuery, GetAllLogsQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetAllLogsQuery, GetAllLogsQueryVariables>(GetAllLogsDocument, baseOptions);
+      }
+export function useGetAllLogsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetAllLogsQuery, GetAllLogsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetAllLogsQuery, GetAllLogsQueryVariables>(GetAllLogsDocument, baseOptions);
+        }
+export type GetAllLogsQueryHookResult = ReturnType<typeof useGetAllLogsQuery>;
+export type GetAllLogsLazyQueryHookResult = ReturnType<typeof useGetAllLogsLazyQuery>;
+export type GetAllLogsQueryResult = ApolloReactCommon.QueryResult<GetAllLogsQuery, GetAllLogsQueryVariables>;
+export const GetLogDocument = gql`
+    query getLog($logId: Float!) {
+  getLog(logId: $logId) {
+    id
+    date
+    patch
+    ship
+    miningHead1
+    miningHead2
+    miningHead3
+    miningLocation
+    sellLocation
+    sellPrice
+    operatingCost
+    profit
+    emptySpace
+    cargoBreakdown {
+      mineral
+      percentage
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetLogQuery__
+ *
+ * To run a query within a React component, call `useGetLogQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLogQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLogQuery({
+ *   variables: {
+ *      logId: // value for 'logId'
+ *   },
+ * });
+ */
+export function useGetLogQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetLogQuery, GetLogQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetLogQuery, GetLogQueryVariables>(GetLogDocument, baseOptions);
+      }
+export function useGetLogLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetLogQuery, GetLogQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetLogQuery, GetLogQueryVariables>(GetLogDocument, baseOptions);
+        }
+export type GetLogQueryHookResult = ReturnType<typeof useGetLogQuery>;
+export type GetLogLazyQueryHookResult = ReturnType<typeof useGetLogLazyQuery>;
+export type GetLogQueryResult = ApolloReactCommon.QueryResult<GetLogQuery, GetLogQueryVariables>;
+export const UpdateLogDocument = gql`
+    mutation updateLog($logId: Float!, $date: String!, $patch: String!, $ship: MiningShips!, $miningHead1: MiningHeadData!, $miningHead2: MiningHeadData!, $miningHead3: MiningHeadData!, $miningLocation: MiningLocations!, $sellLocation: SellLocations!, $sellPrice: Float!, $operatingCost: Float!, $profit: Float!, $emptySpace: Float!, $cargoBreakdown: [JSONObject!]!) {
+  updateLog(logId: $logId, logData: {date: $date, patch: $patch, ship: $ship, miningHead1: $miningHead1, miningHead2: $miningHead2, miningHead3: $miningHead3, miningLocation: $miningLocation, sellLocation: $sellLocation, sellPrice: $sellPrice, operatingCost: $operatingCost, profit: $profit, emptySpace: $emptySpace, cargoBreakdown: $cargoBreakdown}) {
+    id
+    date
+    patch
+    ship
+    miningHead1
+    miningHead2
+    miningHead3
+    miningLocation
+    sellLocation
+    sellPrice
+    operatingCost
+    profit
+    emptySpace
+    cargoBreakdown {
+      mineral
+      percentage
+    }
+  }
+}
+    `;
+export type UpdateLogMutationFn = ApolloReactCommon.MutationFunction<UpdateLogMutation, UpdateLogMutationVariables>;
+
+/**
+ * __useUpdateLogMutation__
+ *
+ * To run a mutation, you first call `useUpdateLogMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLogMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLogMutation, { data, loading, error }] = useUpdateLogMutation({
+ *   variables: {
+ *      logId: // value for 'logId'
+ *      date: // value for 'date'
+ *      patch: // value for 'patch'
+ *      ship: // value for 'ship'
+ *      miningHead1: // value for 'miningHead1'
+ *      miningHead2: // value for 'miningHead2'
+ *      miningHead3: // value for 'miningHead3'
+ *      miningLocation: // value for 'miningLocation'
+ *      sellLocation: // value for 'sellLocation'
+ *      sellPrice: // value for 'sellPrice'
+ *      operatingCost: // value for 'operatingCost'
+ *      profit: // value for 'profit'
+ *      emptySpace: // value for 'emptySpace'
+ *      cargoBreakdown: // value for 'cargoBreakdown'
+ *   },
+ * });
+ */
+export function useUpdateLogMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<UpdateLogMutation, UpdateLogMutationVariables>) {
+        return ApolloReactHooks.useMutation<UpdateLogMutation, UpdateLogMutationVariables>(UpdateLogDocument, baseOptions);
+      }
+export type UpdateLogMutationHookResult = ReturnType<typeof useUpdateLogMutation>;
+export type UpdateLogMutationResult = ApolloReactCommon.MutationResult<UpdateLogMutation>;
+export type UpdateLogMutationOptions = ApolloReactCommon.BaseMutationOptions<UpdateLogMutation, UpdateLogMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($token: String!, $password: String!) {
   changePassword(input: {token: $token, password: $password}) {

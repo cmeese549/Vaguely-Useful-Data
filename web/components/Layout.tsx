@@ -42,8 +42,8 @@ const Layout: React.FunctionComponent<Props> = ({
                     </div>
                     {data?.me &&
                     <div>
-                        <Link href="/logtrip">
-                            <a>Log Trip</a>
+                        <Link href="/add-log">
+                            <a>Add Log</a>
                         </Link>
                     </div>
                     }
@@ -64,7 +64,7 @@ const Layout: React.FunctionComponent<Props> = ({
             {children}
             <footer>
                 <hr />
-                <span>I'm here to stay (Footer)</span>
+                <span>I'm a Footer, sup</span>
             </footer>
         </div>
     );

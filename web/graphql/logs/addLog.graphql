@@ -1,0 +1,33 @@
+mutation addLog(
+        $date: String!, 
+        $patch: String!, 
+        $ship: MiningShips!,
+        $miningHead1: MiningHeadData!,
+        $miningHead2: MiningHeadData!,  
+        $miningHead3: MiningHeadData!,  
+        $miningLocation: MiningLocations!,  
+        $sellLocation: SellLocations!,  
+        $sellPrice: Float!,  
+        $operatingCost: Float!,  
+        $profit: Float!,
+        $emptySpace: Float!,
+        $cargoBreakdown: [JSONObject!]!
+    ) {
+    addLog(logData: { 
+        date: $date,
+        patch: $patch,
+        ship: $ship, 
+        miningHead1: $miningHead1,
+        miningHead2: $miningHead2,
+        miningHead3: $miningHead3,
+        miningLocation: $miningLocation,
+        sellLocation: $sellLocation,
+        sellPrice: $sellPrice,
+        operatingCost: $operatingCost,
+        profit: $profit,
+        emptySpace: $emptySpace,
+        cargoBreakdown: $cargoBreakdown
+    }) {
+        id
+    }
+}

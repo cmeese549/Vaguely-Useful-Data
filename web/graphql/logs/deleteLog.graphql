@@ -1,0 +1,3 @@
+mutation deleteLog($logId: Float!) {
+  deleteLog(logId: $logId)
+}

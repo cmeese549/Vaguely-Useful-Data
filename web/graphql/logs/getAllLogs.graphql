@@ -1,0 +1,12 @@
+query getAllLogs {
+    getAllLogs {
+        data {
+            id
+            date
+            ship
+            profit
+            miningLocation
+            sellLocation
+        }
+    }
+}

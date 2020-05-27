@@ -73,6 +73,29 @@ export class MiningLogsResolver {
         return null;
     }
 
+    @Mutation(() => LogData, { nullable: true})
+    @UseMiddleware(IsAuth)
+    async updateLog(
+        @Ctx() ctx: MyContext,
+        @Arg('logId') logId: number,
+        @Arg('logData') logData: LogDataArgsType
+    ): Promise<LogData | null> {
+        const userId = ctx.req.session!.userId;
+        if (!userId) {
+            return null;
+        }
+        const user = await User.findOne(userId);
+        if (user) {
+            user.logs.data[logId - 1] = {
+                id: logId,
+                ...logData
+            }
+            await user.save();
+            return user.logs.data[logId - 1];
+        }
+        return null;
+    }
+
     @Mutation(() => Boolean)
     @UseMiddleware(IsAuth)
     async deleteLog(
@@ -85,11 +108,7 @@ export class MiningLogsResolver {
         }
         const user = await User.findOne(userId);
         if (user?.logs && logId < user?.logs.data.length + 1) {
-            user.logs.data.forEach((log, index, object) => {
-                if (log.id === logId) {
-                    object.splice(index, 1);
-                }
-            });
+            user.logs.data.splice(logId - 1, 1);
             user.logs.data.forEach((log, index) => {
                 log.id = index + 1;
             });

@@ -5,7 +5,7 @@ export enum MiningLocations {
     Lyria = 'Lyria',
     Wala = 'Wala',
     Cellin = 'Cellin',
-    Daymar = 'Daymay',
+    Daymar = 'Daymar',
     Yela = 'Yela',
     CRUL = 'CRU L1 - CRU L5',
     Levski = 'Levski Asteroid Fields',

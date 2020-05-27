@@ -9,6 +9,7 @@ import { GraphQLJSONObject } from "graphql-type-json";
 @ArgsType()
 @InputType()
 export class LogDataArgsType {
+
   @Field()
   date: string;
 
@@ -41,6 +42,9 @@ export class LogDataArgsType {
 
   @Field()
   profit: number;
+
+  @Field()
+  emptySpace: number;
 
   @Field(() => GraphQLJSONObject)
   cargoBreakdown: CargoData[];

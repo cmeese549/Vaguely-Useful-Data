@@ -42,6 +42,9 @@ export class LogData {
     
     @Field()
     profit: number;
+
+    @Field()
+    emptySpace: number;
     
     @Field(() => [CargoData])
     cargoBreakdown: CargoData[]

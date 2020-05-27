@@ -1,0 +1,21 @@
+query getLog($logId: Float!) {
+    getLog(logId: $logId ) {
+        id 
+        date
+        patch
+        ship
+        miningHead1
+        miningHead2
+        miningHead3
+        miningLocation
+        sellLocation
+        sellPrice
+        operatingCost
+        profit
+        emptySpace
+        cargoBreakdown {
+            mineral
+            percentage
+        }
+    }
+}

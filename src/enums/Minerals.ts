@@ -17,7 +17,7 @@ export enum Minerals {
     Corundum = 'Corundum',
     Quartz = 'Quartz',
     Aluminium = 'Aluminium',
-    InertMaterial = 'Inert Material'
+    InertMaterial = 'InertMaterial'
 }
 
 registerEnumType(Minerals, {
