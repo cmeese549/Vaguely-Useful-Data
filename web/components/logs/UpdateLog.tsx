@@ -10,10 +10,10 @@ const UpdateLog: React.FC = () => {
         const logId = parseInt(qData.index);
         const fetchedLog = useGetLogQuery({ variables: { logId } });
 
-        if(fetchedLog!.data!.getLog) {
+        if(fetchedLog && fetchedLog.data && fetchedLog.data.getLog) {
             return (    
                 <UpdateLogCtx 
-                    logData={fetchedLog!.data!.getLog} 
+                    logData={fetchedLog.data.getLog} 
                     logId={logId} 
                 />
             );

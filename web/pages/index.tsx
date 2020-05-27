@@ -7,10 +7,10 @@ import Link from "next/link";
 
 export default withApollo(() => {
     const { data } = useMeQuery();
-    if (data!.me) {
+    if (data && data.me) {
         return (
             <Layout title="Home"> 
-                <h1>{ data && data.me!.firstName ? data.me!.firstName : "loading here too"}</h1>
+                <h1>{ data && data.me.firstName ? data.me.firstName : "loading here too"}</h1>
                 <Link href="/add-log">
                     <a>Add Log</a>
                 </Link>

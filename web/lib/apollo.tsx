@@ -187,7 +187,7 @@ function createApolloClient(
     }
 
     const httpLink = new HttpLink({
-        uri: "https://benshapirobuttinjeanspics.com/graphql", // Server URL (must be absolute)
+        uri: "http://localhost:4000/graphql", // Server URL (must be absolute)
         credentials: "include",
         fetch,
         fetchOptions

@@ -26,32 +26,34 @@ const Log: React.FunctionComponent = () => {
 
     console.log(logData);
 
-    if(logData!.data) {
+    if(logData.data) {
         //@ts-ignore
         const data: LogData | null = logData.data.getLog;
-        console.log(data);
+        if (!data) {
+            return (<h3>No data :( (err)</h3>);
+        }
         return (
             <div>
                 {!deleting && !showDeletePrompt &&  (
                     <div>
-                        <h1>Mining trip {logId} - {data!.date}</h1>
-                        <h2>{data!.miningLocation} to {data!.sellLocation} in a {data!.ship}</h2>
-                        {data!.ship === 'Prospector' && 
-                            <p>Mining head: {data!.miningHead1}</p>
+                        <h1>Mining trip {logId} - {data.date}</h1>
+                        <h2>{data.miningLocation} to {data.sellLocation} in a {data.ship}</h2>
+                        {data.ship === 'Prospector' && 
+                            <p>Mining head: {data.miningHead1}</p>
                         }
                         {data!.ship === 'Mole' && 
                             <div>
-                                <p>Mining head 1: {data!.miningHead1}</p>
-                                <p>Mining head 2: {data!.miningHead2}</p>
-                                <p>Mining head 3: {data!.miningHead3}</p>
+                                <p>Mining head 1: {data.miningHead1}</p>
+                                <p>Mining head 2: {data.miningHead2}</p>
+                                <p>Mining head 3: {data.miningHead3}</p>
                             </div>
                         }
                         {/*
                         //@ts-ignore */}
                         <CargoBreakdown cargoBreakdown={data!.cargoBreakdown} />
-                        <h3>Revenue: ${data!.sellPrice}</h3>
-                        <h3>Operating Cost: ${data!.operatingCost}</h3>
-                        <h3>Profit: ${data!.profit}</h3>
+                        <h3>Revenue: ${data.sellPrice}</h3>
+                        <h3>Operating Cost: ${data.operatingCost}</h3>
+                        <h3>Profit: ${data.profit}</h3>
                         <button type="button" onClick={() => setShowDeletePrompt(true)}>Delete Log</button>
                         <br></br>
                         <button type="button" onClick={editLog}>Edit Log</button>

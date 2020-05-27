@@ -5,7 +5,7 @@ import Log from "../../components/logs/Log";
 
 export default withApollo(() => {
     const { data } = useMeQuery();
-    if (data!.me) {
+    if (data && data.me) {
         return (
             <Layout title="Log"> 
                 <Log />

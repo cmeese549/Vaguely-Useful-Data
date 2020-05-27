@@ -24,15 +24,15 @@ const EditLog: React.FC<EditLogProps> = (props: EditLogProps) => {
     const handleEdit = async (e: any) => {
         e.preventDefault();
         setIsSubmitting(true);
-        console.log(props.logData);
         const response = await props.mutation({
             variables: props.logData
         });
         setIsSubmitting(false);
-        if (!response!.data!.addLog) {
-            console.log('errrr');
+        if (response.data.addLog) {
+            Router.push("/logs/" + response.data.addLog.id);
         } else {
-            Router.push("/logs/" + response!.data!.addLog!.id);
+            console.log('errrr');
+            console.log(response);
         }
     }
 
@@ -46,11 +46,12 @@ const EditLog: React.FC<EditLogProps> = (props: EditLogProps) => {
             }
         });
         setIsSubmitting(false);
-        console.log(response);
-        if (!response!.data!.updateLog) {
-            console.log('errrr');
-        } else {
+        if (response.data.updateLog) {
             Router.push("/logs/" + props.logId);
+            
+        } else {
+            console.log(response);
+            console.log('errrr');
         }
     }
 

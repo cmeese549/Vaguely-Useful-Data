@@ -6,7 +6,7 @@ import UpdateLog from "../../components/logs/UpdateLog";
 
 export default withApollo(() => {
     const { data } = useMeQuery();
-    if (data!.me) {
+    if (data && data.me) {
         return (
             <Layout title="Edit Log">
                 <UpdateLog />
