@@ -40,9 +40,7 @@ const Layout: React.FunctionComponent<Props> = ({
                             <a>Login</a>
                         </Link>
                     </div>
-                    {//
-                    //@ts-ignore
-                    data.me &&
+                    {data!.me &&
                     <div>
                         <Link href="/add-log">
                             <a>Add Log</a>

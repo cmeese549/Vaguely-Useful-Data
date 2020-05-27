@@ -29,10 +29,10 @@ const EditLog: React.FC<EditLogProps> = (props: EditLogProps) => {
             variables: props.logData
         });
         setIsSubmitting(false);
-        if (!response?.data?.addLog) {
+        if (!response!.data!.addLog) {
             console.log('errrr');
         } else {
-            Router.push("/logs/" + response?.data?.addLog?.id);
+            Router.push("/logs/" + response!.data!.addLog!.id);
         }
     }
 
@@ -47,7 +47,7 @@ const EditLog: React.FC<EditLogProps> = (props: EditLogProps) => {
         });
         setIsSubmitting(false);
         console.log(response);
-        if (!response?.data?.updateLog) {
+        if (!response!.data!.updateLog) {
             console.log('errrr');
         } else {
             Router.push("/logs/" + props.logId);

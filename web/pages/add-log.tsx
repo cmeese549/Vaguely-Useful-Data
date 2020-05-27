@@ -36,7 +36,7 @@ const AddLog: React.FC = () => {
             <Layout title="Add Log">
                 <h1>Add your log here slut</h1>
                 <EditLog 
-                    id={null}
+                    logId={null}
                     mutation={mutation}
                     logData={logData} 
                     setLogData={setLogData} 

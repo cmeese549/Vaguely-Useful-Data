@@ -1,13 +1,12 @@
 import * as React from "react";
 import { withApollo } from "../../lib/apollo";
 import Layout from "../../components/Layout";
-import { useMeQuery, useGetLogQuery } from "../../generated/graphql";
+import { useMeQuery } from "../../generated/graphql";
 import UpdateLog from "../../components/logs/UpdateLog";
-import { useRouter } from "next/router";
 
 export default withApollo(() => {
     const { data } = useMeQuery();
-    if (data?.me) {
+    if (data!.me) {
         return (
             <Layout title="Edit Log">
                 <UpdateLog />
