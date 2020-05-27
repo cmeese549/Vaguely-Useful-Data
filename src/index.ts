@@ -14,13 +14,14 @@ import {
     simpleEstimator
 } from "graphql-query-complexity";
 import { separateOperations } from "graphql";
+require('dotenv').config();
 
 const RedisStore = connectRedis(session);
 
 (async () => {
     const app = express();
 
-    app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+    app.use(cors({ credentials: true, origin: process.env.ENV_URL }));
 
     app.use(
         session({
